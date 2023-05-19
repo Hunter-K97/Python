@@ -1,0 +1,38 @@
+
+from faker import Faker
+
+fake = Faker()
+
+# Generate and print SQL statements for Users table
+for user_id in range(1001, 1501):  # Generate 500 unique user IDs
+    user_name = fake.name().replace("'", "")
+    country = fake.country().replace("'", "")
+    account_creation_date = str(fake.date_between(start_date='-3y', end_date='today'))
+    print(f"INSERT INTO Users (UserID, UserName, Country, AccountCreationDate) VALUES ('{user_id}', '{user_name}', '{country}', '{account_creation_date}');")
+    
+    # Generate and print SQL statements for Follows table
+for follow_id in range(1001, 1501):  # Generate 500 unique follow IDs
+    follower_user_id = fake.random_int(min=1001, max=1500)
+    followed_user_id = fake.random_int(min=1001, max=1500)
+    follow_date = str(fake.date_between(start_date='-3y', end_date='today'))
+    print(f"INSERT INTO Follows (FollowID, FollowerUserID, FollowedUserID, FollowDate) VALUES ('{follow_id}', '{follower_user_id}', '{followed_user_id}', '{follow_date}');")
+    
+    # Generate and print SQL statements for Posts table
+for post_id in range(1001, 2501):  # Generate 1500 unique post IDs
+    user_id = fake.random_int(min=1001, max=1500)
+    post_date = str(fake.date_between(start_date='-3y', end_date='today'))
+    post_content = fake.text().replace("'", "")
+    likes = fake.random_int(min=0, max=1000)
+    shares = fake.random_int(min=0, max=500)
+    print(f"INSERT INTO Posts (PostID, UserID, PostDate, PostContent, Likes, Shares) VALUES ('{post_id}', '{user_id}', '{post_date}', '{post_content}', '{likes}', '{shares}');")
+    
+    # Generate and print SQL statements for Comments table
+for comment_id in range(1, 2501):  # Generate 2500 unique comment IDs
+    post_id = fake.random_int(min=1001, max=2500)
+    user_id = fake.random_int(min=1001, max=1500)
+    comment_date = str(fake.date_between(start_date='-3y', end_date='today'))
+    comment_content = fake.text().replace("'", "")
+    print(f"INSERT INTO Comments (CommentID, PostID, UserID, CommentDate, CommentContent) VALUES ('{comment_id}', '{post_id}', '{user_id}', '{comment_date}', '{comment_content}');")
+
+    
+    
